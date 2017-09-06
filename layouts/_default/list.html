@@ -10,9 +10,9 @@
 			<ul>
 					{{ range .Pages }}
 					<div class="post-item">
-						<div class="post-time">{{ .Date.Format "Jan 2" }}</div>
+						<div class="post-time">{{ .Date.Format "2 Jan" }}</div>
 						<a href="{{ .Permalink }}" class="post-link">
-							{{ .Title }}
+							{{ .Title }} 
 						</a>
 					</div>
 					{{ end }}
