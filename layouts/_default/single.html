@@ -1,48 +1,37 @@
-    {{ partial "head.html" . }}
-    <body>
-       {{ partial "nav.html" . }}
-
-        <section id="wrapper">
-            <article class="post">
-                <header>
-                    <h1>
-                        {{ .Title }}
-                    </h1>
-                    <h3>by {{ .Params.author }}</h3>
-                    <h2 class="headline">
-                    {{ .Date.Format "2 January 2006" }}
-                    · {{ if lt 1 .WordCount }}{{ .WordCount }} words{{ else }}{{ .WordCount }} word{{ end }}
-                    · {{ if eq 1 .ReadingTime }}{{ .ReadingTime }} minute read{{ else }}{{ .ReadingTime }} minutes read{{ end }}
-                      <span class="tags">
-                      {{ with .Params.tags }}
-                      {{ if ge (len .) 1 }}
-                          {{ range . }}
-                              <a href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}">{{ . }}</a>
-                          {{ end }}
-                      {{ end }}
-                      {{ end}}
-                      </span>
-                    </h2>
-                </header>
-                {{ if .Site.Params.enableToc }}
-                  {{ if .TableOfContents }}
-                    <div id="toc">
-                      {{ .TableOfContents }}
-                    </div>
-                  {{ end }}
+  {{ partial "head.html" . }}
+  <body>
+    {{ partial "nav.html" . }}
+    <section id="wrapper">
+      <article class="post">
+        <header>
+          <h1>{{ .Title }}</h1>
+          <h3>by {{ .Params.author }}</h3>
+          <h2 class="headline">
+            {{ .Date.Format "2 January 2006" }}
+            · {{ if lt 1 .WordCount }}{{ .WordCount }} words{{ else }}{{ .WordCount }} word{{ end }}
+            · {{ if eq 1 .ReadingTime }}{{ .ReadingTime }} minute read{{ else }}{{ .ReadingTime }} minutes read{{ end }}
+            <span class="tags">
+              {{ with .Params.tags }}
+                {{ if ge (len .) 1 }}
+                  {{ range . }}<a href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}">{{ . }}</a>{{ end }}
                 {{ end }}
-                <section id="post-body">
-                    {{ .Content }}
-                </section>
-            </article>
-
-            {{ if .Site.Params.enableDisqus }}
-                {{ partial "disqus.html" . }}
-            {{ end }}
-
-            {{ partial "footer.html" . }}
-        </section>
-
-        {{ partial "js.html" . }}
-    </body>
+              {{ end}}
+            </span>
+          </h2>
+        </header>
+        {{ if .Site.Params.enableToc }}
+          {{ if .TableOfContents }}
+            <div id="toc">{{ .TableOfContents }}</div>
+          {{ end }}
+        {{ end }}
+        <section id="post-body">{{ .Content }}</section>
+        <hr>
+        {{ if .Site.Params.enableGithubComments }}
+          {{ partial "comments.html" . }}
+        {{ end }}
+      </article>
+      {{ partial "footer.html" . }}
+    </section>
+    {{ partial "js.html" . }}
+  </body>
 </html>
