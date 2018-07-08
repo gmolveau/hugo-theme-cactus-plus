@@ -13,7 +13,7 @@
             <span class="tags">
               {{ with .Params.tags }}
                 {{ if ge (len .) 1 }}
-                  {{ range . }}<a href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}">{{ . }}</a>{{ end }}
+                  {{ range . }}<a href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}">{{ . }}</a>&nbsp;{{ end }}
                 {{ end }}
               {{ end}}
             </span>
